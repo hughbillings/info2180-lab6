@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" charset="en-us">
+</head>
+<body>
+
+Word:<input type="text" name="word">
+<button id="search">Search</button>
+<h2 id="check"></h2>
+
+
+<script type="text/javascript">
+let searchbutton = document.getElementById("search");
+searchbutton.addEventListener("click",makeRequest);
+
+function makeRequest ()
+{
+	var httpRequest = new XMLHttpRequest();
+	var url = "https://info2180-lab6-hughverdam.c9users.io/request.php?q=definition";
+
+	if(!httpRequest)
+	{
+		alert("RNA! Request Not Available");
+		return false;
+	}
+
+	httpRequest.onreadystatechange = goingToDoThis;
+	httpRequest.open('GET',url,true);
+	httpRequest.send();
+}
+
+function goingToDoThis ()
+{
+	var httpRequest = new XMLHttpRequest();
+	var check = document.getElementById("check");
+	if(this.readyState === XMLHttpRequest.DONE)
+	{
+		if(this.status === 200)
+		{
+			check.innerHTML=(this.responseText);
+		} else {
+			check.innerHTML=("Nothing available");
+		}
+	}
+}
+
+
+</script>
+</body>
+</html>
