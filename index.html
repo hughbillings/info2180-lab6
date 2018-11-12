@@ -5,55 +5,40 @@
 	<meta charset="utf-8" charset="en-us">
 </head>
 <body>
-<form name="input">
-Word:<input type="text" id="myText" name="q">
-<button type="submit" id="search"> Search </button>
-</form>
-<div id = "result"></div>
+Word:<input type="text" name="word">
+<button id="search">Search</button>
 
-
+<div id="result"> </div><h2 id="check"></h2>
 <script type="text/javascript">
-
 let searchbutton = document.getElementById("search");
 searchbutton.addEventListener("click",makeRequest);
-var div1 = document.getElementById("result");
-var myInput = document.getElementById("myText").value;
-
-
-
 function makeRequest ()
 {
 	var httpRequest = new XMLHttpRequest();
-
+	var url = "https://info2180-lab6-hughverdam.c9users.io/request.php?q=definition";
 	if(!httpRequest)
 	{
 		alert("RNA! Request Not Available");
 		return false;
 	}
-
 	httpRequest.onreadystatechange = goingToDoThis;
-	httpRequest.open('GET',"https://info2180-lab6-hughverdam.c9users.io/",true);
+	httpRequest.open('GET',url,true);
 	httpRequest.send();
 }
-
 function goingToDoThis ()
 {
 	var httpRequest = new XMLHttpRequest();
-	
+	var check = document.getElementById("result");
 	if(this.readyState === XMLHttpRequest.DONE)
 	{
 		if(this.status === 200)
 		{
-			div1.innerHTML=(this.responseText);
-			
+			alert(this.responseText);
 		} else {
-			div1.innerHTML=("Nothing available");
-			
+			alert.innerHTML=("Nothing available");
 		}
 	}
 }
-
-
 </script>
 </body>
 </html>
