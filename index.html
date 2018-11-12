@@ -5,7 +5,7 @@
 	<meta charset="utf-8" charset="en-us">
 </head>
 <body>
-Word:<input type="text" name="word">
+Word:<input type="text" id="newt" name="word">
 <button id="search">Search</button>
 
 <div id="result"> </div><h2 id="check"></h2>
@@ -15,7 +15,7 @@ searchbutton.addEventListener("click",makeRequest);
 function makeRequest ()
 {
 	var httpRequest = new XMLHttpRequest();
-	var url = "https://info2180-lab6-hughverdam.c9users.io/request.php?q=definition";
+	var url = "https://info2180-lab6-hughverdam.c9users.io/request.php?q="+document.querySelector("#newt").value.toLowerCase();
 	if(!httpRequest)
 	{
 		alert("RNA! Request Not Available");
@@ -33,9 +33,9 @@ function goingToDoThis ()
 	{
 		if(this.status === 200)
 		{
-			alert(this.responseText);
+			check.innerHTML = (this.responseText);
 		} else {
-			alert.innerHTML=("Nothing available");
+			check.innerHTML=("Nothing available");
 		}
 	}
 }
