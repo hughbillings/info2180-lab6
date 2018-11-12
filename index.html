@@ -5,20 +5,25 @@
 	<meta charset="utf-8" charset="en-us">
 </head>
 <body>
-
-Word:<input type="text" name="word">
-<button id="search">Search</button>
-<h2 id="check"></h2>
+<form name="input">
+Word:<input type="text" id="myText" name="q">
+<button type="submit" id="search"> Search </button>
+</form>
+<div id = "result"></div>
 
 
 <script type="text/javascript">
+
 let searchbutton = document.getElementById("search");
 searchbutton.addEventListener("click",makeRequest);
+var div1 = document.getElementById("result");
+var myInput = document.getElementById("myText").value;
+
+
 
 function makeRequest ()
 {
 	var httpRequest = new XMLHttpRequest();
-	var url = "https://info2180-lab6-hughverdam.c9users.io/request.php?q=definition";
 
 	if(!httpRequest)
 	{
@@ -27,21 +32,23 @@ function makeRequest ()
 	}
 
 	httpRequest.onreadystatechange = goingToDoThis;
-	httpRequest.open('GET',url,true);
+	httpRequest.open('GET',"https://info2180-lab6-hughverdam.c9users.io/",true);
 	httpRequest.send();
 }
 
 function goingToDoThis ()
 {
 	var httpRequest = new XMLHttpRequest();
-	var check = document.getElementById("check");
+	
 	if(this.readyState === XMLHttpRequest.DONE)
 	{
 		if(this.status === 200)
 		{
-			check.innerHTML=(this.responseText);
+			div1.innerHTML=(this.responseText);
+			
 		} else {
-			check.innerHTML=("Nothing available");
+			div1.innerHTML=("Nothing available");
+			
 		}
 	}
 }
