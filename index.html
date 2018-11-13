@@ -3,20 +3,14 @@
 <head>
 	<title></title>
 	<meta charset="utf-8" charset="en-us">
-</head>
-<body>
-<form>
-Word:<input type="text" id="newt" name="word">
-<button id="search">Search</button>
-	</form>
-<div id="result"> </div><h2 id="check"></h2>
-<script type="text/javascript">
-let searchbutton = document.getElementById("search");
-searchbutton.addEventListener("click",makeRequest);
+	<script type="text/javascript">
+
 function makeRequest ()
 {
+	var container = document.getElementById("container").querySelector(".search");
+	var val = container.value;
 	var httpRequest = new XMLHttpRequest();
-	var url = "https://info2180-lab6-hughverdam.c9users.io/request.php?q="+document.querySelector("#newt").value.toLowerCase();
+	var url = "https://info2180-lab6-hughverdam.c9users.io/request.php?q="+val;
 	if(!httpRequest)
 	{
 		alert("RNA! Request Not Available");
@@ -26,6 +20,7 @@ function makeRequest ()
 	httpRequest.open('GET',url,true);
 	httpRequest.send();
 }
+  
 function goingToDoThis ()
 {
 	var httpRequest = new XMLHttpRequest();
@@ -41,5 +36,17 @@ function goingToDoThis ()
 	}
 }
 </script>
+</head>
+<body>
+<form name="word">
+<div id= "container">
+	Word:<input type="text" name="q" class ="search">
+	<input  onclick = "makeRequest()" type="button" class="Submit" value = "Search"> 
+</form>
+</div>
+
+
+
+<div id="result"> </div>
 </body>
 </html>
