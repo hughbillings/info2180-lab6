@@ -44,8 +44,8 @@ function getXML (searching)
 						
 						words += "<li>" + "<h2>" + xmldefclass[i].getAttribute("name") + 
 						"<p>" + xmldefclass[i].textContent +"</p>" +
-						"-" + "<p>" +  xmldefclass[i].getAttribute("author").value + "</p>" + "</li>";
-						definitions.appendChild(word);
+						"-" + "<p>" +  xmldefclass[i].getAttribute("author") + "</p>" + "</li>";
+						
 						
 					}
 						words += "</ol>";
@@ -59,9 +59,9 @@ function getXML (searching)
 					{
 						if(xmldefclass[x].getAttribute("name") === value)
 						{
-							var word = "<h2>" + xmldefclass[x].getAttribute("name").value + "</h2>" + 
-							"<p>" + xmldefclass[x].childNodes[0].nodeValue +"</p>" + 
-							"-" + "<p>" +  xmldefclass[x].getAttribute("author").value + "</p>";
+							var word = "<h2>" + xmldefclass[x].getAttribute("name") + "</h2>" + 
+							"<p>" + xmldefclass[x].textContent +"</p>" + 
+							"-" + "<p>" +  xmldefclass[x].getAttribute("author") + "</p>";
 							check.innerHTML= word;
 						}
 					}
