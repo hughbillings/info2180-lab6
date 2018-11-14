@@ -5,35 +5,74 @@
 	<meta charset="utf-8" charset="en-us">
 	<script type="text/javascript">
 
-function makeRequest ()
+function makeRequest (searching)
 {
-	var container = document.getElementById("container").querySelector(".search");
-	var val = container.value;
+	
 	var httpRequest = new XMLHttpRequest();
-	var url = "https://info2180-lab6-hughverdam.c9users.io/request.php?q="+val;
 	if(!httpRequest)
 	{
 		alert("RNA! Request Not Available");
 		return false;
 	}
-	httpRequest.onreadystatechange = goingToDoThis;
-	httpRequest.open('GET',url,true);
+	httpRequest.onreadystatechange = getXML(searching);
+	httpRequest.open('GET',"https://info2180-lab6-hughverdam.c9users.io/request.php",true);
 	httpRequest.send();
 }
-  
-function goingToDoThis ()
+
+function getXML (searching)
 {
 	var httpRequest = new XMLHttpRequest();
-	var check = document.getElementById("result");
-	if(this.readyState === XMLHttpRequest.DONE)
+	var container = document.getElementById("container").querySelector(".search");
+	var value = container.value;
+	
+	if(httpRequest.readyState === XMLHttpRequest.DONE)
 	{
-		if(this.status === 200)
+		if(httpRequest.status === 200)
 		{
-			check.innerHTML = (this.responseText);
-		} else {
-			check.innerHTML=("Nothing available");
+				var definitions = document.createElement("ol");
+				var xmldefinitions = httpRequest.responseXML;
+				var xmldefclass = xmldefinitions.getElementsByTagName("definition");
+				var check = document.getElementById("result");
+				
+				
+				if(searching)
+				{	
+					
+					for(var i =0; i<xmldefclass.length; i++)
+					{
+						var words = "<ol>";
+						
+						words += "<li>" + "<h2>" + xmldefclass[i].getAttribute("name") + 
+						"<p>" + xmldefclass[i].textContent +"</p>" +
+						"-" + "<p>" +  xmldefclass[i].getAttribute("author").value + "</p>" + "</li>";
+						definitions.appendChild(word);
+						
+					}
+						words += "</ol>";
+					check.innerHTML = words;
+				
+				
+				} else
+				{
+		
+					for(var x = 0; x<xmldefclass.length;x++)
+					{
+						if(xmldefclass[x].getAttribute("name") === value)
+						{
+							var word = "<h2>" + xmldefclass[x].getAttribute("name").value + "</h2>" + 
+							"<p>" + xmldefclass[x].childNodes[0].nodeValue +"</p>" + 
+							"-" + "<p>" +  xmldefclass[x].getAttribute("author").value + "</p>";
+							check.innerHTML= word;
+						}
+					}
+				}
+		} else
+			check.innerHTML = "OOPS";
+		{
+			
 		}
 	}
+
 }
 </script>
 </head>
@@ -41,12 +80,10 @@ function goingToDoThis ()
 <form name="word">
 <div id= "container">
 	Word:<input type="text" name="q" class ="search">
-	<input  onclick = "makeRequest()" type="button" class="Submit" value = "Search"> 
-</form>
+	<input  onclick = "makeRequest(false)" type="button" class="Submit" value = "Search"> 
+	<input onclick = "makeRequest(true)"type="button" class="getall" value ="Get All Definitions">
 </div>
-
-
-
+</form>
 <div id="result"> </div>
 </body>
 </html>
