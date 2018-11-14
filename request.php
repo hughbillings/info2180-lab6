@@ -1,18 +1,39 @@
 <?php
 
-// accept a term (keyword)
-// respond with a value
+$xmldef = '<?xml version ="1.0" encoding ="UTF-8"?>
+<entries>
 
-$query = $_GET['q'];
-$definition = [
-    "definition" => "A statement of the exact meaning of a word, especially in a dictionary.",
-    "bar" => "A place that sells alcholic beverages",
-    "ajax" => "Technique which involves the use of javascript and xml (or JSON)",
-    "html" => "The standard markup language for creating web pages and web applications.",
-    "css" => "A style sheet language used for describing the presentation of a document written in a markup language.",
-    "javascript" => "A lightweight, interpreted programming language with first-class functions that adds interactivity to your website.",
-    "php" => "A server-side scripting language, and a powerful tool for making dynamic and interactive websites",
-];
+<definition name="definition" author = "Maxine">
+"A statement of the exact meaning of a word, especially in a dictionary."
+</definition>
 
-print "<h3>" . strtoupper($query) . "</h3>";
-print "<p>" . $definition[$query] . "</p>";
+<definition name="javascript" author = "Mavis">
+A lightweight, interpreted programming language with first-class functions that adds interactivity to your website.
+</definition>
+
+<definition name="bar" author = "Margette">
+A place that sells alcholic beverages
+</definition>
+
+<definition name="css" author = "Mabelline">
+A style sheet language used for describing the presentation of a document written in a markup language.
+</definition>
+
+<definition name="ajax" author = "Matilda">
+Technique which involves the use of javascript and xml (or JSON)
+</definition>
+
+<definition name="html" author = "Marsha">
+The standard markup language for creating web pages and web applications.
+</definition>
+
+<definition name="php" author = "Marlene">
+A server-side scripting language, and a powerful tool for making dynamic and interactive websites
+</definition>
+
+</entries>';
+
+
+header('Content-Type: text/xml');
+$xmldata = new SimpleXMLElement($xmldef);
+echo $xmldata -> asXML();
